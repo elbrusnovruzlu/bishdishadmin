@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.elno.wedding.presentation.dashboard.DashboardFragment"
+        android:name="com.elno.bishdish.presentation.dashboard.DashboardFragment"
         android:label="DashboardFragment"
         tools:layout="@layout/fragment_dashboard"/>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.elno.wedding.presentation.search.SearchFragment"
+        android:name="com.elno.bishdish.presentation.search.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search"/>
     <fragment
         android:id="@+id/offerInfoFragment"
-        android:name="com.elno.wedding.presentation.offerinfo.OfferInfoFragment"
+        android:name="com.elno.bishdish.presentation.offerinfo.OfferInfoFragment"
         android:label="OfferInfoFragment"
         tools:layout="@layout/fragment_offer_info"/>
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="com.elno.wedding.presentation.favourite.FavouriteFragment"
+        android:name="com.elno.bishdish.presentation.favourite.FavouriteFragment"
         android:label="FavouriteFragment"
         tools:layout="@layout/fragment_favourite"/>
     <fragment
         android:id="@+id/onboardFragment"
-        android:name="com.elno.wedding.presentation.onboard.OnboardFragment"
+        android:name="com.elno.bishdish.presentation.onboard.OnboardFragment"
         android:label="OnboardFragment"
         tools:layout="@layout/fragment_onboard">
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
-        android:name="com.elno.wedding.presentation.more.MoreFragment"
+        android:name="com.elno.bishdish.presentation.more.MoreFragment"
         android:label="MoreFragment"
         tools:layout="@layout/fragment_more">
         <action
@@ -59,32 +59,32 @@
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.elno.wedding.presentation.notification.NotificationFragment"
+        android:name="com.elno.bishdish.presentation.notification.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification"/>
     <fragment
         android:id="@+id/contactUsFragment"
-        android:name="com.elno.wedding.presentation.more.ContactUsFragment"
+        android:name="com.elno.bishdish.presentation.more.ContactUsFragment"
         android:label="ContactUsFragment"
         tools:layout="@layout/fragment_contact_us"/>
     <fragment
         android:id="@+id/languageFragment"
-        android:name="com.elno.wedding.presentation.more.LanguageFragment"
+        android:name="com.elno.bishdish.presentation.more.LanguageFragment"
         android:label="LanguageFragment"
         tools:layout="@layout/fragment_language"/>
     <fragment
         android:id="@+id/appIconFragment"
-        android:name="com.elno.wedding.presentation.more.AppIconFragment"
+        android:name="com.elno.bishdish.presentation.more.AppIconFragment"
         android:label="AppIconFragment"
         tools:layout="@layout/fragment_app_icon"/>
     <fragment
         android:id="@+id/privacyPolicyFragment"
-        android:name="com.elno.wedding.presentation.more.policy.PrivacyPolicyFragment"
+        android:name="com.elno.bishdish.presentation.more.policy.PrivacyPolicyFragment"
         android:label="PrivacyPolicyFragment"
         tools:layout="@layout/fragment_privacy_policy"/>
     <fragment
         android:id="@+id/appearanceFragment"
-        android:name="com.elno.wedding.presentation.more.AppearanceFragment"
+        android:name="com.elno.bishdish.presentation.more.AppearanceFragment"
         android:label="AppearanceFragment"
         tools:layout="@layout/fragment_appreance"/>
 

@@ -91,11 +91,11 @@
             android:textAppearance="@style/caption_medium_brand" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/priceChip"
+            android:id="@+id/ingredientChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:chipCornerRadius="8dp"
-            android:visibility="gone"
+            android:text="@string/choose_ingredient"
             app:chipBackgroundColor ="@color/brandColorLight"
             android:textColor="@color/brandColor"
             android:layout_marginStart="8dp"

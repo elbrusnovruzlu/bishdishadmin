@@ -33,7 +33,7 @@
         app:itemRippleColor="@android:color/darker_gray"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:theme="@style/Theme.Wedding"
+        app:theme="@style/Theme.Bishdish"
         app:menu="@menu/menu_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

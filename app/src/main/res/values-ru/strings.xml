@@ -41,7 +41,8 @@
     <string name="vendor_contact">Контакт</string>
     <string name="favourites">Избранное</string>
     <string name="filter">Фильтр</string>
-    <string name="price_interval">Ценовой интервал</string>
+    <string name="ingredient">Ингредиент</string>
+    <string name="choose_ingredient">Выберите ингредиент</string>
     <string name="make_filter">Фильтр</string>
     <string name="clear_filter">Сбросить фильтры</string>
     <string name="notifications">Уведомления</string>
@@ -63,4 +64,6 @@
     <string name="add">Əlavə et</string>
     <string name="no_search_result">Seçdiyiniz filterlərə uyğun partnyor tapılmadı</string>
     <string name="no_search_result_description">Yeni filter tətbiq elə</string>
+    <string name="search_ingredient">Поиск ингредиента</string>
+    <string name="clear_selected_ingredient">Очистить выбранный ингредиент</string>
 </resources>

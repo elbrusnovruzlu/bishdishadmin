@@ -60,53 +60,38 @@
 
         </com.google.android.material.chip.ChipGroup>
 
+
         <TextView
-            android:id="@+id/priceTextView"
+            android:id="@+id/ingredientTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price_interval"
+            android:text="@string/ingredient"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="28dp"
             android:includeFontPadding="false"
             android:textAppearance="@style/sub_headline_semi_bold"/>
 
-        <LinearLayout
-            android:id="@+id/priceLayout"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_background"
+            android:layout_marginTop="12dp"
+            app:queryHint="@string/search_ingredient"
+            android:gravity="center"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@null"
+            app:theme="@style/AppSearchView"
+            app:layout_constraintTop_toBottomOf="@+id/ingredientTextView"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/ingredientChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
-            android:weightSum="2"
-            app:layout_constraintTop_toBottomOf="@+id/priceTextView">
-
-            <include
-                android:id="@+id/minPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                layout="@layout/price_layout"/>
-
-            <include
-                android:id="@+id/maxPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                layout="@layout/price_layout"/>
-
-        </LinearLayout>
-
-        <com.google.android.material.slider.RangeSlider
-            android:id="@+id/priceSlider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:valueFrom="0"
-            android:stepSize="50"
-            app:labelBehavior="gone"
-            app:layout_constraintTop_toBottomOf="@+id/priceLayout"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/searchView"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/filterBtn"

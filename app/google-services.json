@@ -1,45 +1,26 @@
 {
   "project_info": {
-    "project_number": "628003228293",
-    "firebase_url": "https://event-management-482ed-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "event-management-482ed",
-    "storage_bucket": "event-management-482ed.appspot.com"
+    "project_number": "574884732857",
+    "project_id": "bishdish-f3136",
+    "storage_bucket": "bishdish-f3136.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:628003228293:android:a76cf1a60b3dbf739977ec",
+        "mobilesdk_app_id": "1:574884732857:android:94b4a6092533777f2ca068",
         "android_client_info": {
-          "package_name": "com.elno.wedding"
+          "package_name": "com.elno.bishdish"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "628003228293-mlm4v8jhtgq03arbnbtrqb78o20igj27.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.elno.wedding",
-            "certificate_hash": "ec5fd667f7e71106a1ce80dcedd1caed9aeb7201"
-          }
-        },
-        {
-          "client_id": "628003228293-h1oscvpgpsmdimmei9qh9agip6s51mi0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB3x0qXDbwVgRf6pX367XH-UZBTlTEicYU"
+          "current_key": "AIzaSyBH0xmDCS0K1P04mJqJ5G_z4tiVWNvUmv0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "628003228293-h1oscvpgpsmdimmei9qh9agip6s51mi0.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

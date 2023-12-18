@@ -40,7 +40,8 @@
     <string name="vendor_contact">Əlaqə</string>
     <string name="favourites">Şeçilmişlər</string>
     <string name="filter">Filtr</string>
-    <string name="price_interval">Qiymət aralığı</string>
+    <string name="ingredient">Tərkibi</string>
+    <string name="choose_ingredient">Tərkibi seç</string>
     <string name="make_filter">Filtr et</string>
     <string name="clear_filter">Filtri sıfırla</string>
     <string name="notifications">Bildirişlər</string>
@@ -62,4 +63,6 @@
     <string name="add">Əlavə et</string>
     <string name="no_search_result">Seçdiyiniz filterlərə uyğun partnyor tapılmadı</string>
     <string name="no_search_result_description">Yeni filter tətbiq elə</string>
+    <string name="search_ingredient">Tərkibi axtar</string>
+    <string name="clear_selected_ingredient">Seçilmiş Tərkibini Təmizləyin</string>
 </resources>

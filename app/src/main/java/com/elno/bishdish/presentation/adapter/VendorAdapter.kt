@@ -62,7 +62,7 @@ class VendorAdapter(
                     .into(imageView)
             }
             name.text = UtilityFunctions.getLocalizedTextFromMap(itemView.context, item?.title)
-            type.text =UtilityFunctions.getType( itemView.context, item?.type?.get(0))
+            type.text = item?.type?.map { UtilityFunctions.getType(itemView.context, it) }.toString()
             favButton.isChecked = LocalDataStore(itemView.context).getList<String>(FAVOURITE_LIST).contains(item?.id) == true
             cardView.setOnClickListener {
                 onClick(item)

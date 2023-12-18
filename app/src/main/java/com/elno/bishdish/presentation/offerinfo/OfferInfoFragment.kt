@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.elno.bishdish.R
 import com.elno.bishdish.common.Constants.FAVOURITE_LIST
 import com.elno.bishdish.common.Constants.OFFER_MODEL
+import com.elno.bishdish.common.UtilityFunctions
 import com.elno.bishdish.common.UtilityFunctions.dpToPx
 import com.elno.bishdish.common.UtilityFunctions.getLocalizedTextFromMap
 import com.elno.bishdish.common.UtilityFunctions.getType
@@ -47,7 +48,7 @@ class OfferInfoFragment : BaseFragment<FragmentOfferInfoBinding>(FragmentOfferIn
         }
         binding.favButton.isChecked = LocalDataStore(context).getList<String>(FAVOURITE_LIST).contains(vendorModel?.id) == true
         binding.name.text = getLocalizedTextFromMap(context, vendorModel?.title)
-        binding.type.text = getType(context, vendorModel?.type?.get(0))
+        binding.type.text = vendorModel?.type?.map { getType(context, it) }.toString()
 
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = OfferInfoAdapter(this, vendorModel)

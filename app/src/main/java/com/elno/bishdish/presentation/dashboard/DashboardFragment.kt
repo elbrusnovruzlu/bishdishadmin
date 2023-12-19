@@ -60,6 +60,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(FragmentDashboa
             }
             binding.categoriesRecyclerView.adapter = categoryAdapter
 
+//            viewModel.populateList()
             viewModel.getSliderList()
             viewModel.getCategoryList()
             viewModel.getIngredient()

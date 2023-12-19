@@ -20,15 +20,22 @@ import com.elno.bishdish.domain.model.VendorModel
 class VendorAdapter(
     private val onClick: (item: VendorModel?) -> Unit,
     private val onEmptyResult: (isEmpty: Boolean) -> Unit,
-    val context: Context
 ) :  RecyclerView.Adapter<VendorAdapter.ViewHolder>(), Filterable {
 
     private var list = mutableListOf<VendorModel?>()
     private var filterList = mutableListOf<VendorModel?>()
+    var context: Context? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: MutableList<VendorModel?>) {
         list = newList
+        filterList = list
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addList(newList: MutableList<VendorModel?>) {
+        list.addAll(newList)
         filterList = list
         notifyDataSetChanged()
     }

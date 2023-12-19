@@ -69,7 +69,7 @@ class DashboardViewModel @Inject constructor(
 
     private fun getPopularOfferList() {
         _popularListResult.value = Resource.Loading()
-        databaseReference.collection("vendors").whereEqualTo("isPopular", true).get().addOnSuccessListener { result ->
+        databaseReference.collection("vendors").whereEqualTo("popular", true).get().addOnSuccessListener { result ->
             val offerList = arrayListOf<VendorModel?>()
             for (documentSnapshot in result) {
                 val offerModel = documentSnapshot.toObject(VendorModel::class.java)
@@ -81,5 +81,26 @@ class DashboardViewModel @Inject constructor(
             _popularListResult.value = Resource.Error("Error while loading")
         }
     }
+
+    fun populateList() {
+        for (i in 1..71) {
+            val type = if(i.mod(2) == 0) "healthy" else "seafood"
+            val url = if(i.mod(2) == 0) "https://firebasestorage.googleapis.com/v0/b/bishdish-f3136.appspot.com/o/dishes%2Fmediterranean-tuna-salad-31059-1.jpeg?alt=media&token=34bb48d6-8018-409a-8f3c-74bfcf724d01" else "https://firebasestorage.googleapis.com/v0/b/bishdish-f3136.appspot.com/o/dishes%2Ffast-food.jpg?alt=media&token=ed40d24e-4502-4823-a57b-9d36a7269b8c"
+            val documentId = "V${i}"
+            val dish = VendorModel(
+                id = documentId,
+                title = mapOf("az" to "Tuna salatı", "en" to "Tuna salad", "ru" to "Салат из тунца"),
+                imageUrl = url,
+                type = arrayListOf(type),
+                description = mapOf("az" to "description az", "en" to "description en", "ru" to "description ru"),
+                images = arrayListOf(url, url, url, url, url),
+                ingredients = arrayListOf("tuna", "marul", "corn"),
+                isPopular = true,
+                order = i
+            )
+            databaseReference.collection("vendors").document(documentId).set(dish)
+        }
+    }
+
 
 }

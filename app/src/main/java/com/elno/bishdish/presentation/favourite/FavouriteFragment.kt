@@ -24,17 +24,20 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(FragmentFavouri
 
     private val viewModel: FavouriteViewModel by viewModels()
 
-    private var adapter: VendorAdapter? = null
+    private var adapter: VendorAdapter? = VendorAdapter(
+        { onOfferClick(it) },
+        {}
+    )
 
     override fun setupViews() {
-        adapter = VendorAdapter(
-            { onOfferClick(it) },
-            {},
-            requireContext()
-        )
+        adapter?.context = requireContext()
         binding.gridView.adapter = adapter
         binding.gridView.layoutManager = GridLayoutManager(context, 2)
-        viewModel.getFavouriteList()
+        if(adapter?.itemCount == 0) {
+            viewModel.getFavouriteList()
+        } else {
+            binding.gridView.isVisible = true
+        }
     }
 
     override fun setupObservers() {

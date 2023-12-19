@@ -102,11 +102,11 @@ class OfferInfoFragment : BaseFragment<FragmentOfferInfoBinding>(FragmentOfferIn
     }
 
     private fun dialPhoneNumber() {
-        vendorModel?.mobile?.let { mobile ->
-            val dialIntent = Intent(Intent.ACTION_DIAL)
-            dialIntent.data = Uri.parse("tel:${mobile}")
-            startActivity(dialIntent)
-        }
+//        vendorModel?.mobile?.let { mobile ->
+//            val dialIntent = Intent(Intent.ACTION_DIAL)
+//            dialIntent.data = Uri.parse("tel:${mobile}")
+//            startActivity(dialIntent)
+//        }
     }
 
     private fun isEdgeToEdgeEnabled(): Int {

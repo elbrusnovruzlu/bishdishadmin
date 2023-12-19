@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.6.21"
 }
 
 android {
@@ -45,6 +46,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.6'
@@ -72,4 +74,11 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.0'
     implementation 'com.airbnb.android:lottie:5.2.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    // for Gradle version 6.0 and later
+    implementation("com.algolia:algoliasearch-client-kotlin:2.0.0")
+
+    // Choose one of the following HTTP clients
+
+    implementation("io.ktor:ktor-client-android:2.0.1")
+
 }

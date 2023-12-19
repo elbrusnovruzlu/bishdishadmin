@@ -9,16 +9,22 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.elno.bishdish.R
 import com.elno.bishdish.common.Constants
+import com.elno.bishdish.common.LocaleManager
 import com.elno.bishdish.common.Resource
 import com.elno.bishdish.common.Static.filterModel
 import com.elno.bishdish.common.UtilityFunctions
 import com.elno.bishdish.databinding.FragmentSearchBinding
 import com.elno.bishdish.domain.model.VendorModel
+import com.elno.bishdish.presentation.adapter.LoadingAdapter
 import com.elno.bishdish.presentation.adapter.VendorAdapter
 import com.elno.bishdish.presentation.base.BaseFragment
+import com.elno.bishdish.presentation.custom.EndlessRecyclerViewScrollListener
 import com.elno.bishdish.presentation.search.filter.FilterBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +33,24 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate), SearchView.OnQueryTextListener {
 
     private val viewModel: SearchViewModel by viewModels()
-    private var adapter: VendorAdapter? = null
+    private var adapter: VendorAdapter? = VendorAdapter(
+        { onOfferClick(it) },
+        { onEmptyResult(it) }
+    )
+    private val loadingAdapter = LoadingAdapter()
+    private lateinit var baseAdapter: ConcatAdapter
+
+    private val recyclerViewListener = object : EndlessRecyclerViewScrollListener() {
+        override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+            baseAdapter.addAdapter(loadingAdapter)
+            if(viewModel.searchQuery.isEmpty()) {
+                viewModel.getMoreVendorList()
+            } else {
+                viewModel.searchVendorList(true)
+            }
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,19 +62,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun setupViews() {
-        adapter = VendorAdapter(
-            { onOfferClick(it) },
-            { onEmptyResult(it) },
-            requireContext()
-        )
-        binding.gridView.adapter = adapter
+        adapter?.context = requireContext()
+        baseAdapter = ConcatAdapter(adapter)
+        binding.gridView.adapter = baseAdapter
         binding.gridView.layoutManager = GridLayoutManager(context, 2)
+        binding.gridView.addOnScrollListener(recyclerViewListener)
         binding.categoryChip.text = UtilityFunctions.getType(context, viewModel.categoryType)
         binding.categoryChip.isCloseIconVisible = viewModel.categoryType != "all"
         binding.ingredientChip.isCloseIconVisible = viewModel.ingredientType.isNotEmpty()
         binding.redDot.isVisible = viewModel.categoryType != "all"
-        viewModel.getVendorList()
-        viewModel.getFilterMaxPrice()
+        if(adapter?.itemCount == 0) {
+            recyclerViewListener.resetState()
+            viewModel.getVendorList()
+        } else {
+            binding.vendorShimmerView.stopShimmer()
+            binding.vendorShimmerView.isVisible = false
+        }
     }
 
     private fun onEmptyResult(isEmpty: Boolean) {
@@ -75,12 +101,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             viewModel.categoryType = "all"
             setFilterIcon(viewModel.categoryType, viewModel.ingredientType)
             binding.emptyLayout.isVisible = false
+            recyclerViewListener.resetState()
             viewModel.getVendorList()
         }
         binding.ingredientChip.setOnCloseIconClickListener {
             viewModel.ingredientType = arrayListOf()
             setFilterIcon(viewModel.categoryType, viewModel.ingredientType)
             binding.emptyLayout.isVisible = false
+            recyclerViewListener.resetState()
             viewModel.getVendorList()
         }
         binding.favourite.setOnClickListener {
@@ -94,6 +122,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             viewLifecycleOwner,
             ::consumeVendorListResult
         )
+        viewModel.moreVendorListResult.observe(
+            viewLifecycleOwner,
+            ::consumeMoreVendorListResult
+        )
+    }
+
+    private fun consumeMoreVendorListResult(resource: Resource<ArrayList<VendorModel?>>) {
+        when(resource) {
+            is  Resource.Success -> {
+                baseAdapter.removeAdapter(loadingAdapter)
+                adapter?.addList(resource.data?: mutableListOf())
+            }
+            is  Resource.Error -> {
+                baseAdapter.removeAdapter(loadingAdapter)
+                Toast.makeText(context, resource.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun consumeVendorListResult(resource: Resource<ArrayList<VendorModel?>>) {
@@ -105,10 +150,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
             is  Resource.Success -> {
                 binding.emptyLayout.isVisible = resource.data.isNullOrEmpty()
-                binding.searchView.setOnQueryTextListener(null)
-                binding.searchView.setQuery("", false)
-                binding.searchView.clearFocus()
-                binding.searchView.setOnQueryTextListener(this)
+//                binding.searchView.setOnQueryTextListener(null)
+//                binding.searchView.setQuery("", false)
+//                binding.searchView.clearFocus()
+//                binding.searchView.setOnQueryTextListener(this)
                 adapter?.submitList(resource.data?: mutableListOf())
                 binding.vendorShimmerView.stopShimmer()
                 binding.gridView.isVisible = true
@@ -139,9 +184,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun onFilterResult(categoryType: String, ingredientType: ArrayList<String>) {
         setFilterIcon(categoryType, ingredientType)
+        viewModel.searchQuery = ""
+        binding.searchView.setOnQueryTextListener(null)
+        binding.searchView.setQuery("", false)
+        binding.searchView.setOnQueryTextListener(this)
         viewModel.categoryType = categoryType
         viewModel.ingredientType = ingredientType
         binding.emptyLayout.isVisible = false
+        recyclerViewListener.resetState()
         viewModel.getVendorList()
     }
 
@@ -163,7 +213,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        adapter?.filter?.filter(newText)
+        viewModel.lastIndex = 0
+        recyclerViewListener.resetState()
+        viewModel.searchQuery = newText.orEmpty()
+        viewModel.categoryType = "all"
+        viewModel.ingredientType = arrayListOf()
+        setFilterIcon(viewModel.categoryType, viewModel.ingredientType)
+        binding.emptyLayout.isVisible = false
+
+        if(newText.isNullOrEmpty()) {
+            viewModel.getVendorList()
+        } else {
+            viewModel.searchVendorList()
+        }
+//        adapter?.filter?.filter(newText)
         return false
     }
 

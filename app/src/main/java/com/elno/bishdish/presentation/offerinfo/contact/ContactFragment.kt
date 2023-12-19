@@ -37,91 +37,91 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(FragmentContactBind
     }
 
     override fun setupViews() {
-        if(vendorModel?.location != null) {
-            binding.mapView.isVisible = true
-            binding.mapView.getMapAsync(this)
-        }
-        else {
-            binding.mapView.isVisible = false
-        }
-        binding.wp.icon.setImageResource(R.drawable.ic_whatsapp)
-        binding.call.icon.setImageResource(R.drawable.ic_phone)
-        binding.instagram.icon.setImageResource(R.drawable.ic_instagram)
-        binding.wp.subTitle.text = getString(R.string.contact_on_whatsapp)
-        binding.call.subTitle.text = getString(R.string.call)
-        binding.wp.subTitle.isVisible = true
-        binding.call.subTitle.isVisible = true
-        binding.instagram.title.text = getString(R.string.instagram)
-
-        vendorModel?.whatsapp?.let {
-            binding.wp.title.text = it
-        }
-
-        vendorModel?.mobile?.let {
-            binding.call.title.text = it
-        }
+//        if(vendorModel?.location != null) {
+//            binding.mapView.isVisible = true
+//            binding.mapView.getMapAsync(this)
+//        }
+//        else {
+//            binding.mapView.isVisible = false
+//        }
+//        binding.wp.icon.setImageResource(R.drawable.ic_whatsapp)
+//        binding.call.icon.setImageResource(R.drawable.ic_phone)
+//        binding.instagram.icon.setImageResource(R.drawable.ic_instagram)
+//        binding.wp.subTitle.text = getString(R.string.contact_on_whatsapp)
+//        binding.call.subTitle.text = getString(R.string.call)
+//        binding.wp.subTitle.isVisible = true
+//        binding.call.subTitle.isVisible = true
+//        binding.instagram.title.text = getString(R.string.instagram)
+//
+//        vendorModel?.whatsapp?.let {
+//            binding.wp.title.text = it
+//        }
+//
+//        vendorModel?.mobile?.let {
+//            binding.call.title.text = it
+//        }
 
     }
 
     override fun setupListeners() {
         binding.wp.root.setOnClickListener {
-            openWhatsapp()
+//            openWhatsapp()
         }
         binding.call.root.setOnClickListener {
-            dialPhoneNumber()
+//            dialPhoneNumber()
         }
 
         binding.instagram.root.setOnClickListener {
-            openInstagram()
+//            openInstagram()
         }
     }
 
-    private fun openWhatsapp() {
-        vendorModel?.whatsapp?.let { wp ->
-            val url = "https://wa.me/${wp}"
-            val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(url)
-            startActivity(i)
-        }
-    }
-
-    private fun dialPhoneNumber() {
-        vendorModel?.mobile?.let { mobile ->
-            val dialIntent = Intent(Intent.ACTION_DIAL)
-            dialIntent.data = Uri.parse("tel:${mobile}")
-            startActivity(dialIntent)
-        }
-    }
-
-    private fun openInstagram() {
-        vendorModel?.instagram?.let { instagram ->
-            val uri = Uri.parse("http://instagram.com/_u/$instagram")
-            val likeIng = Intent(Intent.ACTION_VIEW, uri)
-
-            likeIng.setPackage("com.instagram.android")
-
-            try {
-                startActivity(likeIng)
-            } catch (e: ActivityNotFoundException) {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("http://instagram.com/$instagram")
-                    )
-                )
-            }
-        }
-    }
+//    private fun openWhatsapp() {
+//        vendorModel?.whatsapp?.let { wp ->
+//            val url = "https://wa.me/${wp}"
+//            val i = Intent(Intent.ACTION_VIEW)
+//            i.data = Uri.parse(url)
+//            startActivity(i)
+//        }
+//    }
+//
+//    private fun dialPhoneNumber() {
+//        vendorModel?.mobile?.let { mobile ->
+//            val dialIntent = Intent(Intent.ACTION_DIAL)
+//            dialIntent.data = Uri.parse("tel:${mobile}")
+//            startActivity(dialIntent)
+//        }
+//    }
+//
+//    private fun openInstagram() {
+//        vendorModel?.instagram?.let { instagram ->
+//            val uri = Uri.parse("http://instagram.com/_u/$instagram")
+//            val likeIng = Intent(Intent.ACTION_VIEW, uri)
+//
+//            likeIng.setPackage("com.instagram.android")
+//
+//            try {
+//                startActivity(likeIng)
+//            } catch (e: ActivityNotFoundException) {
+//                startActivity(
+//                    Intent(
+//                        Intent.ACTION_VIEW,
+//                        Uri.parse("http://instagram.com/$instagram")
+//                    )
+//                )
+//            }
+//        }
+//    }
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        mMap.uiSettings.isMapToolbarEnabled = true
-        val lat : Double = vendorModel?.location?.get("latitude") ?: 38.955734
-        val lng : Double = vendorModel?.location?.get("longitude") ?: 45.629189
-        val position = LatLng(lat, lng)
-        mMap.addMarker(MarkerOptions().position(position))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 14f))
+//        mMap = googleMap
+//        mMap.uiSettings.isMapToolbarEnabled = true
+//        val lat : Double = vendorModel?.location?.get("latitude") ?: 38.955734
+//        val lng : Double = vendorModel?.location?.get("longitude") ?: 45.629189
+//        val position = LatLng(lat, lng)
+//        mMap.addMarker(MarkerOptions().position(position))
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 14f))
     }
 
     override fun onStart() {

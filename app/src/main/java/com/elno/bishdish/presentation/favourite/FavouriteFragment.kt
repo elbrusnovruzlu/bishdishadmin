@@ -24,13 +24,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(FragmentFavouri
 
     private val viewModel: FavouriteViewModel by viewModels()
 
-    private var adapter: VendorAdapter? = VendorAdapter(
-        { onOfferClick(it) },
-        {}
-    )
+    private var adapter: VendorAdapter? = VendorAdapter{ onOfferClick(it) }
+
 
     override fun setupViews() {
-        adapter?.context = requireContext()
         binding.gridView.adapter = adapter
         binding.gridView.layoutManager = GridLayoutManager(context, 2)
         if(adapter?.itemCount == 0) {
@@ -55,7 +52,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(FragmentFavouri
             is  Resource.Success -> {
                 binding.loading.isVisible = false
                 val favouriteIds = LocalDataStore(context).getList<String>(FAVOURITE_LIST)
-                val filteredList = resource.data?.filter { favouriteIds.contains(it?.id) }?.toMutableList()
+                val filteredList = resource.data?.filter { favouriteIds.contains(it?.id) }
                 if(filteredList.isNullOrEmpty()) {
                     binding.emptyLayout.isVisible = true
                     binding.gridView.isVisible = false
@@ -63,7 +60,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(FragmentFavouri
                 else {
                     binding.emptyLayout.isVisible = false
                     binding.gridView.isVisible = true
-                    adapter?.submitList(filteredList)
+                    adapter?.submitList(ArrayList(filteredList))
                 }
             }
             is  Resource.Error -> {

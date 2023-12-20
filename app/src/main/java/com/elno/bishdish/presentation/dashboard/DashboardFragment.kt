@@ -24,6 +24,7 @@ import com.elno.bishdish.domain.model.SliderModel
 import com.elno.bishdish.presentation.adapter.CategoryAdapter
 import com.elno.bishdish.presentation.adapter.OfferAdapter
 import com.elno.bishdish.presentation.adapter.SliderAdapter
+import com.elno.bishdish.presentation.adapter.VendorAdapter
 import com.elno.bishdish.presentation.base.BaseFragment
 import com.elno.bishdish.presentation.sliderinfo.SliderInfoBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +34,7 @@ import java.util.ArrayList
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>(FragmentDashboardBinding::inflate) {
 
     private var viewPagerAdapter: SliderAdapter? = null
-    private var offerAdapter: OfferAdapter? = null
+    private var vendorAdapter: VendorAdapter? = null
     private var categoryAdapter: CategoryAdapter? = null
 
     private val viewModel: DashboardViewModel by viewModels()
@@ -50,17 +51,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(FragmentDashboa
             }
             binding.viewPager.adapter = viewPagerAdapter
 
-            offerAdapter = OfferAdapter{ model ->
+            vendorAdapter = VendorAdapter(true) { model ->
                 onOfferClick(model)
             }
-            binding.offersRecyclerView.adapter = offerAdapter
+            binding.offersRecyclerView.adapter = vendorAdapter
 
             categoryAdapter = CategoryAdapter { model ->
                 onCategoryClick(model)
             }
             binding.categoriesRecyclerView.adapter = categoryAdapter
 
-//            viewModel.populateList()
             viewModel.getSliderList()
             viewModel.getCategoryList()
             viewModel.getIngredient()
@@ -148,7 +148,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(FragmentDashboa
                 binding.offerShimmerView.startShimmer()
             }
             is  Resource.Success -> {
-                resource.data?.let { offerAdapter?.submitList(it) }
+                resource.data?.let { vendorAdapter?.submitList(it) }
                 binding.offerShimmerView.stopShimmer()
                 binding.offerShimmerView.isVisible = false
             }

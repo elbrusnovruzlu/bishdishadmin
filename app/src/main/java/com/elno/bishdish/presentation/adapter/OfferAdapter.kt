@@ -17,8 +17,9 @@ import com.elno.bishdish.common.UtilityFunctions.getScreenWidth
 import com.elno.bishdish.data.local.LocalDataStore
 import com.elno.bishdish.domain.model.VendorModel
 
-
-class OfferAdapter(private val onClick: (categoryModel: VendorModel?) -> Unit): RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
+class OfferAdapter(
+    private val onClick: (categoryModel: VendorModel?) -> Unit
+): RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
     private val list = arrayListOf<VendorModel?>()
 

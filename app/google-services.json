@@ -26,9 +26,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:574884732857:android:c810ea121d598b7d2ca068",
+        "mobilesdk_app_id": "1:574884732857:android:be81d95d4caef24d2ca068",
         "android_client_info": {
-          "package_name": "com.example.bishdishadmin"
+          "package_name": "com.elno.bishdishadmin"
         }
       },
       "oauth_client": [],
